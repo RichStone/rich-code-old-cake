@@ -115,8 +115,28 @@ class PostalServicesController extends AppController
         $this->set('_serialize', ['postalServices']);
     }
     
-    public function calculate() {
-        
+    public function calculate()
+    {
+        if($this->request->is(['patch', 'post', 'put'])) {
+            $packageValue = $this->request->data['package-value'];
+            $this->fetchShippingOption($this->request);
+        }
+    }
+
+    /**
+     * choose the right shipping option according to the user's input
+     * @param $request contains the users calculate() request
+     */
+    public function fetchShippingOption($request)
+    {
+        $packageWeight = $request->data['package-weight'];
+        $packageHeight = $request->data['package-height'];
+
+        $postalServices = $this->PostalServices->find('all', [
+            'conditions' => ['PostalServices.max_weight >' => $packageWeight, 'PostalServices.max_height >' => $packageHeight]
+        ]);
+
+        debug($postalServices->toArray());
     }
 
     public function statistics() {

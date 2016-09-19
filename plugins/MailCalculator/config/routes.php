@@ -1,11 +1,10 @@
 <?php
-use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 
-Router::plugin(
-    'MailCalculator',
-    ['path' => '/mail-calculator'],
-    function (RouteBuilder $routes) {
-        $routes->fallbacks('DashedRoute');
-    }
-);
+Router::plugin('MailCalculator', function ($routes) {
+    $routes->fallbacks('DashedRoute');
+});
+
+Router::scope('/mail_calculator', ['plugin' => 'MailCalculator'], function ($routes) {
+    $routes->connect('/', ['controller' => 'PostalServices']);
+});
