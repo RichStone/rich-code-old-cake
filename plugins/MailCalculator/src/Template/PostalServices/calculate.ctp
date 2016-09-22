@@ -8,3 +8,4 @@
 <div class="form-group">
     <?= $this->Form->button(__('Calculate!'), ['id' => 'calc-button', 'class' => 'btn btn-info']); ?>
 </div>
+<?= $this->Form->end() ?>

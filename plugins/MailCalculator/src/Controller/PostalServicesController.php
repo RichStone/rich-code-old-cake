@@ -33,7 +33,6 @@ class PostalServicesController extends AppController
         $postalService = $this->PostalServices->get($id, [
             'contain' => []
         ]);
-
         $this->set('postalService', $postalService);
         $this->set('_serialize', ['postalService']);
     }
@@ -117,29 +116,48 @@ class PostalServicesController extends AppController
     
     public function calculate()
     {
-        if($this->request->is(['patch', 'post', 'put'])) {
+        $postalServices = $this->PostalServices->find('all');
+        $this->set(compact('postalServices'));
+        if($this->request->is(['post', 'put'])) {
             $packageValue = $this->request->data['package-value'];
-            $this->fetchShippingOption($this->request);
+            $postalService = $this->fetchShippingOption($this->request);
+            $this->setAction('statistics', $postalService);
         }
     }
 
     /**
      * choose the right shipping option according to the user's input
      * @param $request contains the users calculate() request
+     * @return array with the two cheapest options, (insured and uninsured)
      */
     public function fetchShippingOption($request)
     {
         $packageWeight = $request->data['package-weight'];
         $packageHeight = $request->data['package-height'];
 
-        $postalServices = $this->PostalServices->find('all', [
-            'conditions' => ['PostalServices.max_weight >' => $packageWeight, 'PostalServices.max_height >' => $packageHeight]
+        $postalServiceInsured = $this->PostalServices->find('all', [
+            'conditions' => [
+                'PostalServices.max_weight >' => $packageWeight,
+                'PostalServices.max_height >' => $packageHeight,
+//                'PostalServices.tracked' => true
+            ],
+            'order' => ['PostalServices.price' => 'ASC']
         ]);
-
-        debug($postalServices->toArray());
+        return $postalServiceInsured->first();
     }
 
-    public function statistics() {
-        
+    /**
+     * @param $packageValue article price
+     * @param $postalService fetched service
+     * @return mathematical ev of shipping option in relation to the postal service
+     */
+    public function calculateEv($packageValue, $postalService) {
+        $ev = null;
+
+        return $ev;
+    }
+
+    public function statistics($postalService) {
+        $this->set(compact('postalService'));
     }
 }

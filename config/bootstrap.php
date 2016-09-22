@@ -213,5 +213,3 @@ if (Configure::read('debug')) {
 Plugin::load('Migrations');
 
 Plugin::load('MailCalculator', ['bootstrap' => false, 'routes' => true]);
-
-Plugin::load('LibelliSchminken', ['bootstrap' => false, 'routes' => true]);
