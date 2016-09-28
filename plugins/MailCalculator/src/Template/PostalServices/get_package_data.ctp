@@ -11,6 +11,5 @@
 <?= $this->Form->end() ?>
 
 <?php if (isset($calcResultCell)): ?>
-    <?php $cell = $this->cell->render('MailCalculator.Calculation') ?>
     <?= $calcResultCell ?>
 <?php endif; ?>

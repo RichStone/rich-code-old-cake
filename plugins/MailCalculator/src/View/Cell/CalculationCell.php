@@ -28,6 +28,11 @@ class CalculationCell extends Cell
         $evInsured = $packageValue;
         $this->set(compact('evUninsured', 'evInsured'));
     }
+    
+    public function whenNotSet() 
+    {
+        
+    }
 
     /**
      * @param $packageValue article price

@@ -123,8 +123,9 @@ class PostalServicesController extends AppController
         if($this->request->is(['post', 'put'])) {
             $packageValue = $this->request->data['package-value'];
             $postalServices = $this->fetchShippingOption($this->request);
-            $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageValue, $postalServices]);
-            debug($calcResultCell);die;
+            $calcResultCell = $this->cell('MailCalculator.Calculation::whenNotSet');
+            $this->set(compact('calcResultCell'));
+//            debug($calcResultCell);die;
 //            $this->setAction('getPackageData');
         }
     }
