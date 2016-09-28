@@ -2,6 +2,7 @@
 namespace MailCalculator\Controller;
 
 use MailCalculator\Controller\AppController;
+use Cake\View\CellTrait;
 
 /**
  * PostalServices Controller
@@ -113,21 +114,24 @@ class PostalServicesController extends AppController
         $this->set(compact('postalServices'));
         $this->set('_serialize', ['postalServices']);
     }
-    
-    public function calculate()
+
+    use CellTrait;
+    public function getPackageData()
     {
         $postalServices = $this->PostalServices->find('all');
         $this->set(compact('postalServices'));
         if($this->request->is(['post', 'put'])) {
             $packageValue = $this->request->data['package-value'];
-            $postalService = $this->fetchShippingOption($this->request);
-            $this->setAction('statistics', $postalService);
+            $postalServices = $this->fetchShippingOption($this->request);
+            $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageValue, $postalServices]);
+            debug($calcResultCell);die;
+//            $this->setAction('getPackageData');
         }
     }
 
     /**
      * choose the right shipping option according to the user's input
-     * @param $request contains the users calculate() request
+     * @param $request contains the users getPackageData() request
      * @return array with the two cheapest options, (insured and uninsured)
      */
     public function fetchShippingOption($request)
@@ -144,17 +148,6 @@ class PostalServicesController extends AppController
             'order' => ['PostalServices.price' => 'ASC']
         ]);
         return $postalServiceInsured->first();
-    }
-
-    /**
-     * @param $packageValue article price
-     * @param $postalService fetched service
-     * @return mathematical ev of shipping option in relation to the postal service
-     */
-    public function calculateEv($packageValue, $postalService) {
-        $ev = null;
-
-        return $ev;
     }
 
     public function statistics($postalService) {

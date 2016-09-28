@@ -9,3 +9,8 @@
     <?= $this->Form->button(__('Calculate!'), ['id' => 'calc-button', 'class' => 'btn btn-info']); ?>
 </div>
 <?= $this->Form->end() ?>
+
+<?php if (isset($calcResultCell)): ?>
+    <?php $cell = $this->cell->render('MailCalculator.Calculation') ?>
+    <?= $calcResultCell ?>
+<?php endif; ?>
