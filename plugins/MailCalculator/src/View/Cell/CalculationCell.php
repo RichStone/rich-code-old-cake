@@ -22,16 +22,11 @@ class CalculationCell extends Cell
      *
      * @return void
      */
-    public function display($packageValue, $postalServices)
+    public function display($packageValue, $insuredOption, $uninsuredOption)
     {
-        $evUninsured = $packageValue;
-        $evInsured = $packageValue;
+        $evUninsured = $this->calculateEv($packageValue, $insuredOption);
+        $evInsured = $this->calculateEv($packageValue, $uninsuredOption);
         $this->set(compact('evUninsured', 'evInsured'));
-    }
-    
-    public function whenNotSet() 
-    {
-        
     }
 
     /**
@@ -40,8 +35,27 @@ class CalculationCell extends Cell
      * @return mathematical ev of shipping option in relation to the postal service
      */
     public function calculateEv($packageValue, $postalService) {
-        $ev = null;
+//        $p = $this->setP();
+//        debug($postalService['price']);
+        //Deutsche Post's official possibility in percent of shipping lose
+        if(isset($postalService)) {
+            $p = 0.95;
+
+            if($postalService['tracked']) {
+                $ev = ((-$postalService['price']) + $packageValue);
+            }
+            else {
+                $ev = ((-$postalService['price']) + (1 - $p) * (-$packageValue) + ($p * $packageValue));
+            }
+        }
+        else {
+            $ev = 'Es gibt leider keinen Postservice zu Ihrer Eingabe';
+        }
 
         return $ev;
+    }
+
+    public function setP($postalService) {
+
     }
 }

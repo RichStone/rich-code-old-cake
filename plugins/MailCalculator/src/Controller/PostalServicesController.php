@@ -116,17 +116,23 @@ class PostalServicesController extends AppController
     }
 
     use CellTrait;
+
+    /**
+     * get all the necessary data to determine shipping options and
+     * transmit to the CalculationCell.
+     */
     public function getPackageData()
     {
         $postalServices = $this->PostalServices->find('all');
         $this->set(compact('postalServices'));
         if($this->request->is(['post', 'put'])) {
+            $fetchedServices = $this->fetchShippingOption($this->request);
+            $insuredOption = $fetchedServices[0];
+            $uninsuredOption = $fetchedServices[1];
+
             $packageValue = $this->request->data['package-value'];
-            $postalServices = $this->fetchShippingOption($this->request);
-            $calcResultCell = $this->cell('MailCalculator.Calculation::whenNotSet');
+            $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageValue, $insuredOption, $uninsuredOption]);
             $this->set(compact('calcResultCell'));
-//            debug($calcResultCell);die;
-//            $this->setAction('getPackageData');
         }
     }
 
@@ -137,18 +143,34 @@ class PostalServicesController extends AppController
      */
     public function fetchShippingOption($request)
     {
+        $fetchedServices = null;
+
+        $packageValue = $request->data['package-value'];
         $packageWeight = $request->data['package-weight'];
         $packageHeight = $request->data['package-height'];
 
         $postalServiceInsured = $this->PostalServices->find('all', [
             'conditions' => [
+                'PostalServices.insurance_max_sum >' => $packageValue,
                 'PostalServices.max_weight >' => $packageWeight,
                 'PostalServices.max_height >' => $packageHeight,
-//                'PostalServices.tracked' => true
+                'PostalServices.tracked' => true
             ],
             'order' => ['PostalServices.price' => 'ASC']
         ]);
-        return $postalServiceInsured->first();
+        $postalServiceInsured = $postalServiceInsured->first();
+
+        $postalServiceUninsured = $this->PostalServices->find('all', [
+            'conditions' => [
+                'PostalServices.max_weight >' => $packageWeight,
+                'PostalServices.max_height >' => $packageHeight,
+                'PostalServices.tracked' => false
+            ],
+            'order' => ['PostalServices.price' => 'ASC']
+        ]);
+        $postalServiceUninsured = $postalServiceUninsured->first();
+        
+        return $fetchedServices = [$postalServiceInsured, $postalServiceUninsured];
     }
 
     public function statistics($postalService) {
