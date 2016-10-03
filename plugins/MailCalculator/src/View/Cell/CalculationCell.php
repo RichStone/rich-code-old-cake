@@ -24,9 +24,14 @@ class CalculationCell extends Cell
      */
     public function display($packageValue, $insuredOption, $uninsuredOption)
     {
-        $evUninsured = $this->calculateEv($packageValue, $insuredOption);
-        $evInsured = $this->calculateEv($packageValue, $uninsuredOption);
-        $this->set(compact('evUninsured', 'evInsured'));
+        $evInsured = $this->calculateEv($packageValue, $insuredOption);
+        $evUninsured = $this->calculateEv($packageValue, $uninsuredOption);
+        $postalServiceNameInsured = $insuredOption['name'];
+        $postalServicePriceInsured = $insuredOption['price'];
+        $postalServiceNameUninsured = $uninsuredOption['name'];
+        $postalServicePriceUninsured = $uninsuredOption['price'];
+        $this->set(compact('evUninsured', 'evInsured', 'postalServiceNameInsured', 'postalServicePriceInsured',
+            'postalServiceNameUninsured', 'postalServicePriceUninsured'));
     }
 
     /**
@@ -34,13 +39,11 @@ class CalculationCell extends Cell
      * @param $postalService fetched service
      * @return mathematical ev of shipping option in relation to the postal service
      */
-    public function calculateEv($packageValue, $postalService) {
-//        $p = $this->setP();
-//        debug($postalService['price']);
-        //Deutsche Post's official possibility in percent of shipping lose
-        if(isset($postalService)) {
-            $p = 0.95;
+    public function calculateEv($packageValue, $postalService)
+    {
+        $p = $this->setP($postalService);
 
+        if(isset($postalService)) {
             if($postalService['tracked']) {
                 $ev = ((-$postalService['price']) + $packageValue);
             }
@@ -49,13 +52,24 @@ class CalculationCell extends Cell
             }
         }
         else {
-            $ev = 'Es gibt leider keinen Postservice zu Ihrer Eingabe';
+            $ev = 'Es gibt leider keinen Versandservice zu Ihrer Eingabe';
         }
 
         return $ev;
     }
 
     public function setP($postalService) {
+        $p = null;
 
+        if($postalService['shipping_range'] === 'national' && $postalService['tracked'])
+            $p = 0.99;
+        if($postalService['shipping_range'] === 'national' && !$postalService['tracked'])
+            $p = 0.96;
+        if($postalService['shipping_range'] === 'international' && $postalService['tracked'])
+            $p = 0.94;
+        if($postalService['shipping_range'] === 'international' && !$postalService['tracked'])
+            $p = 0.90;
+
+        return $p;
     }
 }

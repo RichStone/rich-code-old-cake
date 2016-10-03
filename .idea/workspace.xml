@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e1287e1-9269-461f-9598-eb6cde8b2183" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/when_not_set.ctp" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/MailCalculator/src/Controller/PostalServicesController.php" afterPath="$PROJECT_DIR$/plugins/MailCalculator/src/Controller/PostalServicesController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/display.ctp" afterPath="$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/display.ctp" />
@@ -31,8 +30,8 @@
       <file leaf-file-name="PostalServicesController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Controller/PostalServicesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="172" column="0" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+            <state relative-caret-position="609">
+              <caret line="153" column="52" selection-start-line="153" selection-start-column="52" selection-end-line="153" selection-end-column="52" />
               <folding>
                 <element signature="e#44#88#0#PHP" expanded="true" />
               </folding>
@@ -40,11 +39,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="display.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/display.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="CalculationCell.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/View/Cell/CalculationCell.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+            <state relative-caret-position="150">
+              <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -450,12 +459,12 @@
       <workItem from="1474540072540" duration="1688000" />
       <workItem from="1475053122404" duration="7864000" />
       <workItem from="1475471970742" duration="5895000" />
-      <workItem from="1475496266871" duration="2666000" />
+      <workItem from="1475496266871" duration="6323000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91013000" />
+    <option name="totallyTimeSpent" value="94670000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="367" y="23" width="1073" height="873" extended-state="0" />
@@ -781,22 +790,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/when_not_set.ctp" />
-    <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/View/Cell/CalculationCell.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/display.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Template/PostalServices/get_package_data.ctp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -805,10 +798,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/View/Cell/CalculationCell.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Template/Cell/Calculation/display.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/plugins/MailCalculator/src/Controller/PostalServicesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="172" column="0" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+        <state relative-caret-position="609">
+          <caret line="153" column="52" selection-start-line="153" selection-start-column="52" selection-end-line="153" selection-end-column="52" />
           <folding>
             <element signature="e#44#88#0#PHP" expanded="true" />
           </folding>

@@ -151,7 +151,7 @@ class PostalServicesController extends AppController
 
         $postalServiceInsured = $this->PostalServices->find('all', [
             'conditions' => [
-                'PostalServices.insurance_max_sum >' => $packageValue,
+                'PostalServices.insurance_max_sum >=' => $packageValue,
                 'PostalServices.max_weight >' => $packageWeight,
                 'PostalServices.max_height >' => $packageHeight,
                 'PostalServices.tracked' => true
@@ -162,8 +162,8 @@ class PostalServicesController extends AppController
 
         $postalServiceUninsured = $this->PostalServices->find('all', [
             'conditions' => [
-                'PostalServices.max_weight >' => $packageWeight,
-                'PostalServices.max_height >' => $packageHeight,
+                'PostalServices.max_weight >=' => $packageWeight,
+                'PostalServices.max_height >=' => $packageHeight,
                 'PostalServices.tracked' => false
             ],
             'order' => ['PostalServices.price' => 'ASC']
