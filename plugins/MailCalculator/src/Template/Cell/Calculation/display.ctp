@@ -5,6 +5,8 @@
     <div>
         <div>EV versichert:</div> <?= $evInsured ?>
     </div>
+<?php else: ?>
+    <div>hi</div>
 <?php endif; ?>
 
 <div>

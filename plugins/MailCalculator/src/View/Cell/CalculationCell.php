@@ -61,12 +61,14 @@ class CalculationCell extends Cell
     public function setP($postalService) {
         $p = null;
 
+        //national services
         if($postalService['shipping_range'] === 'national' && $postalService['tracked'])
             $p = 0.99;
         if($postalService['shipping_range'] === 'national' && !$postalService['tracked'])
-            $p = 0.96;
+            $p = 0.95;
+        //international services
         if($postalService['shipping_range'] === 'international' && $postalService['tracked'])
-            $p = 0.94;
+            $p = 0.97;
         if($postalService['shipping_range'] === 'international' && !$postalService['tracked'])
             $p = 0.90;
 
