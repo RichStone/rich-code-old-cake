@@ -145,9 +145,10 @@ class PostalServicesController extends AppController
     {
         $fetchedServices = null;
 
-        $packageValue = $request->data['package-value'];
-        $packageWeight = $request->data['package-weight'];
-        $packageHeight = $request->data['package-height'];
+        $content_id = $request->data['package_content'];
+        $packageValue = $request->data['value'];
+        $packageWeight = $request->data['weight'];
+        $packageHeight = $request->data['height'];
 
         $postalServiceInsured = $this->PostalServices->find('all', [
             'conditions' => [

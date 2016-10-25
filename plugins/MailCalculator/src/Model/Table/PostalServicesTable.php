@@ -59,18 +59,8 @@ class PostalServicesTable extends Table
             ->allowEmpty('price');
 
         $validator
-            ->boolean('tracked')
-            ->allowEmpty('tracked');
-
-        $validator
             ->decimal('insurance_max_sum')
             ->allowEmpty('insurance_max_sum');
-
-        $validator
-            ->allowEmpty('insurance_type');
-
-        $validator
-            ->allowEmpty('insurance_forbidden_products');
 
         $validator
             ->integer('max_weight')
@@ -93,16 +83,7 @@ class PostalServicesTable extends Table
             ->allowEmpty('max_overall_size');
 
         $validator
-            ->allowEmpty('country_iso');
-
-        $validator
-            ->allowEmpty('country_name');
-
-        $validator
             ->allowEmpty('shipping_range');
-
-        $validator
-            ->allowEmpty('additional_info');
 
         return $validator;
     }

@@ -12,7 +12,7 @@ class CalculationCell extends Cell
     /**
      * List of valid options that can be passed into this
      * cell's constructor.
-     *
+     * 
      * @var array
      */
     protected $_validCellOptions = [];
