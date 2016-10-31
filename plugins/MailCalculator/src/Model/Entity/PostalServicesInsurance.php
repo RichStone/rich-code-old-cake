@@ -4,24 +4,16 @@ namespace MailCalculator\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * PostalService Entity
+ * PostalServicesInsurance Entity
  *
  * @property int $id
- * @property string $carrier
- * @property string $name
- * @property float $price
- * @property int $max_weight
- * @property int $max_height
- * @property int $max_width
- * @property int $max_length
- * @property int $max_overall_size
- * @property string $shipping_range
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property int $postal_service_id
+ * @property int $insurance_id
  *
- * @property \MailCalculator\Model\Entity\Insurance[] $insurances
+ * @property \MailCalculator\Model\Entity\PostalService $postal_service
+ * @property \MailCalculator\Model\Entity\Insurance $insurance
  */
-class PostalService extends Entity
+class PostalServicesInsurance extends Entity
 {
 
     /**

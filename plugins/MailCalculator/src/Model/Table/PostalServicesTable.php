@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * PostalServices Model
  *
+ * @property \Cake\ORM\Association\BelongsToMany $Insurances
+ *
  * @method \MailCalculator\Model\Entity\PostalService get($primaryKey, $options = [])
  * @method \MailCalculator\Model\Entity\PostalService newEntity($data = null, array $options = [])
  * @method \MailCalculator\Model\Entity\PostalService[] newEntities(array $data, array $options = [])
@@ -37,6 +39,13 @@ class PostalServicesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsToMany('Insurances', [
+            'foreignKey' => 'postal_service_id',
+            'targetForeignKey' => 'insurance_id',
+            'joinTable' => 'postal_services_insurances',
+            'className' => 'MailCalculator.Insurances'
+        ]);
     }
 
     /**
@@ -52,15 +61,17 @@ class PostalServicesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('name');
+            ->requirePresence('carrier', 'create')
+            ->notEmpty('carrier');
 
         $validator
-            ->decimal('price')
-            ->allowEmpty('price');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
 
         $validator
-            ->decimal('insurance_max_sum')
-            ->allowEmpty('insurance_max_sum');
+            ->numeric('price')
+            ->requirePresence('price', 'create')
+            ->notEmpty('price');
 
         $validator
             ->integer('max_weight')

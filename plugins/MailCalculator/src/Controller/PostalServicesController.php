@@ -130,7 +130,9 @@ class PostalServicesController extends AppController
             $insuredOption = $fetchedServices[0];
             $uninsuredOption = $fetchedServices[1];
 
-            $packageValue = $this->request->data['package-value'];
+            $packageValue = $this->request->data['value'];
+            $packageContent = $this->request->data['content_id'];
+            debug($packageContent);die;
             $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageValue, $insuredOption, $uninsuredOption]);
             $this->set(compact('calcResultCell'));
         }
@@ -150,27 +152,33 @@ class PostalServicesController extends AppController
         $packageWeight = $request->data['weight'];
         $packageHeight = $request->data['height'];
 
-        $postalServiceInsured = $this->PostalServices->find('all', [
+        //insured option
+        $postalServiceInsured = $this->PostalServices->find()->matching('Insurances', function ($q) {
+            return $q->where(['Insurances.name !=' => 'Unversichert']);
+        });
+        $postalServiceInsured = $postalServiceInsured->find('all', [
             'conditions' => [
-                'PostalServices.insurance_max_sum >=' => $packageValue,
                 'PostalServices.max_weight >' => $packageWeight,
                 'PostalServices.max_height >' => $packageHeight,
-                'PostalServices.tracked' => true
             ],
-            'order' => ['PostalServices.price' => 'ASC']
-        ]);
-        $postalServiceInsured = $postalServiceInsured->first();
+            'order' => ['PostalServices.price' => 'ASC'],
+        ])
+            ->first();
 
-        $postalServiceUninsured = $this->PostalServices->find('all', [
+
+        //risky option
+        $postalServiceUninsured = $this->PostalServices->find()->matching('Insurances', function ($q) {
+            return $q->where(['Insurances.name =' => 'Unversichert']);
+        });
+        $postalServiceUninsured = $postalServiceUninsured->find('all', [
             'conditions' => [
-                'PostalServices.max_weight >=' => $packageWeight,
-                'PostalServices.max_height >=' => $packageHeight,
-                'PostalServices.tracked' => false
+                'PostalServices.max_weight >' => $packageWeight,
+                'PostalServices.max_height >' => $packageHeight,
             ],
-            'order' => ['PostalServices.price' => 'ASC']
-        ]);
-        $postalServiceUninsured = $postalServiceUninsured->first();
-        
+            'order' => ['PostalServices.price' => 'ASC'],
+        ])
+            ->first();
+
         return $fetchedServices = [$postalServiceInsured, $postalServiceUninsured];
     }
 
