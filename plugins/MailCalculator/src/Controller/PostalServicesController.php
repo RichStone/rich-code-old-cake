@@ -123,17 +123,19 @@ class PostalServicesController extends AppController
      */
     public function getPackageData()
     {
+        $this->loadModel('Items');
         $postalServices = $this->PostalServices->find('all');
-        $this->set(compact('postalServices'));
+        $items = $this->Items->find('list')->toArray();
+        $this->set(compact('postalServices', 'items'));
         if($this->request->is(['post', 'put'])) {
             $fetchedServices = $this->fetchShippingOption($this->request);
             $insuredOption = $fetchedServices[0];
             $uninsuredOption = $fetchedServices[1];
 
             $packageValue = $this->request->data['value'];
-            $packageContent = $this->request->data['content_id'];
-            debug($packageContent);die;
-            $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageValue, $insuredOption, $uninsuredOption]);
+            $packageContent = $this->request->data['item'];
+
+            $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageContent, $packageValue, $insuredOption, $uninsuredOption]);
             $this->set(compact('calcResultCell'));
         }
     }
@@ -147,7 +149,7 @@ class PostalServicesController extends AppController
     {
         $fetchedServices = null;
 
-        $content_id = $request->data['package_content'];
+        $content_id = $request->data['item'];
         $packageValue = $request->data['value'];
         $packageWeight = $request->data['weight'];
         $packageHeight = $request->data['height'];

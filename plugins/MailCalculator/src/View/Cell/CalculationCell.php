@@ -22,16 +22,18 @@ class CalculationCell extends Cell
      *
      * @return void
      */
-    public function display($packageValue, $insuredOption, $uninsuredOption)
+    public function display($item, $value, $insuredOption, $riskyOption)
     {
-        $evInsured = $this->calculateEv($packageValue, $insuredOption);
-        $evUninsured = $this->calculateEv($packageValue, $uninsuredOption);
+        //adjust calculateEV method properly
+        $evInsured = $this->calculateEv($value, $insuredOption, $shippingCosts);
+        $evRisky = $this->calculateEv($value, $riskyOption);
         $postalServiceNameInsured = $insuredOption['name'];
         $postalServicePriceInsured = $insuredOption['price'];
-        $postalServiceNameUninsured = $uninsuredOption['name'];
-        $postalServicePriceUninsured = $uninsuredOption['price'];
-        $this->set(compact('evUninsured', 'evInsured', 'postalServiceNameInsured', 'postalServicePriceInsured',
-            'postalServiceNameUninsured', 'postalServicePriceUninsured'));
+        $postalServiceNameRisky = $riskyOption['name'];
+        $postalServicePriceRisky = $riskyOption['price'];
+        debug($evRisky);
+        $this->set(compact('evRisky', 'evInsured', 'postalServiceNameInsured', 'postalServicePriceInsured',
+            'postalServiceNameRisky', 'postalServicePriceRisky'));
     }
 
     /**
