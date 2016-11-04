@@ -1,6 +1,6 @@
 <?php if(isset($postalServiceNameInsured)): ?>
     <div>
-        <div>Der billigste versicherte Versandservice für Ihre <?= $item ?> ist</div><?= $postalServiceNameInsured . ' mit einem Preis von ' . $postalServicePriceInsured ?>
+        <div>Der billigste versicherte Versandservice für Ihre <?= $item_name ?> ist</div><?= $postalServiceNameInsured . ' mit einem Preis von ' . $postalServicePriceInsured ?>
     </div>
     <div>
         <div>EV versichert:</div> <?= $evInsured ?>
@@ -10,7 +10,7 @@
 <?php endif; ?>
 
 <div>
-    <div>Der billigste NICHT versicherte Versandservice für Ihre <?= $item ?> ist</div><?= $postalServiceNameRisky . ' mit einem Preis von ' . $postalServicePriceRisky ?>
+    <div>Der billigste NICHT versicherte Versandservice für Ihre <?= $item_name ?> ist</div><?= $postalServiceNameRisky . ' mit einem Preis von ' . $postalServicePriceRisky ?>
 </div>
 <div>
     <div>EV nicht versichert: </div> <?=  $evRisky?>

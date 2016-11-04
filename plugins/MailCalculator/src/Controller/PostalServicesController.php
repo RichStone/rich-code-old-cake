@@ -133,9 +133,9 @@ class PostalServicesController extends AppController
             $uninsuredOption = $fetchedServices[1];
 
             $packageValue = $this->request->data['value'];
-            $packageContent = $this->request->data['item'];
+            $item_id = $this->request->data['item_id'];
 
-            $calcResultCell = $this->cell('MailCalculator.Calculation', [$packageContent, $packageValue, $insuredOption, $uninsuredOption]);
+            $calcResultCell = $this->cell('MailCalculator.Calculation', [$item_id, $packageValue, $insuredOption, $uninsuredOption]);
             $this->set(compact('calcResultCell'));
         }
     }
@@ -149,7 +149,7 @@ class PostalServicesController extends AppController
     {
         $fetchedServices = null;
 
-        $content_id = $request->data['item'];
+        $content_id = $request->data['item_id'];
         $packageValue = $request->data['value'];
         $packageWeight = $request->data['weight'];
         $packageHeight = $request->data['height'];

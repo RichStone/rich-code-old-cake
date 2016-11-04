@@ -22,18 +22,21 @@ class CalculationCell extends Cell
      *
      * @return void
      */
-    public function display($item, $value, $insuredOption, $riskyOption)
+    public function display($item_id, $value, $insuredOption, $riskyOption)
     {
+        $this->loadModel('Items');
+
         //adjust calculateEV method properly
-        $evInsured = $this->calculateEv($value, $insuredOption, $shippingCosts);
+        $evInsured = $this->calculateEv($value, $insuredOption);
         $evRisky = $this->calculateEv($value, $riskyOption);
         $postalServiceNameInsured = $insuredOption['name'];
         $postalServicePriceInsured = $insuredOption['price'];
         $postalServiceNameRisky = $riskyOption['name'];
         $postalServicePriceRisky = $riskyOption['price'];
-        debug($evRisky);
+        $item_name = $this->Items->find('all')->where(['id' => $item_id])->first()->name;
+
         $this->set(compact('evRisky', 'evInsured', 'postalServiceNameInsured', 'postalServicePriceInsured',
-            'postalServiceNameRisky', 'postalServicePriceRisky'));
+            'postalServiceNameRisky', 'postalServicePriceRisky', 'item_name'));
     }
 
     /**
@@ -43,8 +46,9 @@ class CalculationCell extends Cell
      */
     public function calculateEv($packageValue, $postalService)
     {
+        //TODO fix calculation
         $p = $this->setP($postalService);
-
+debug($postalService);
         if(isset($postalService)) {
             if($postalService['tracked']) {
                 $ev = ((-$postalService['price']) + $packageValue);
