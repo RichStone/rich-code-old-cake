@@ -1,0 +1,52 @@
+.small-input {
+    margin: 0 auto 0 auto;
+    vertical-align: middle;
+    width: 65px;
+    vertical-align: middle;
+    background-color: rgba(255,255,255,0.9);
+}
+
+.img-input-field {
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    background: grey;
+    margin: 2% auto;
+    display: block;
+}
+
+.dollar-img {
+    background: url("../img/dollar-symbol.svg") no-repeat;
+    background-size: 100%;
+}
+
+.weight-img {
+    background: url('../img/scale.svg') no-repeat;
+    background-size: 100%;
+}
+
+.height-img {
+    background: url('../img/ruler.svg') no-repeat;
+    background-size: 100%;
+}
+
+.calculator-img {
+    background: url("../img/calculator.svg");
+    background-size: 100%;
+}
+
+#calc-button {
+    width: 120px;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+footer {
+    font-style: italic;
+    background-color: lightgrey !important;
+}
+
+#item-id {
+    width: 200px;
+    margin: auto;
+}

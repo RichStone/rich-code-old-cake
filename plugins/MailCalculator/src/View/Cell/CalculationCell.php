@@ -48,8 +48,8 @@ class CalculationCell extends Cell
     {
         $p = $this->setP($postalService);
 
-
-debug($postalService['_matchingData']['Insurances']->name);
+//TODO continue here with setting up right EV calculation
+//debug($postalService['_matchingData']['Insurances']->name);
 
 //        $postalService = $postalService->where(['PostalService.name' => 'Standard']);
 

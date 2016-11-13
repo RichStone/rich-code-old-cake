@@ -128,6 +128,7 @@ class PostalServicesController extends AppController
         $items = $this->Items->find('list')->toArray();
         $this->set(compact('postalServices', 'items'));
         if($this->request->is(['post', 'put'])) {
+            debug($this->request->data);die;
             $fetchedServices = $this->fetchShippingOption($this->request);
             $insuredOption = $fetchedServices[0];
             $uninsuredOption = $fetchedServices[1];
