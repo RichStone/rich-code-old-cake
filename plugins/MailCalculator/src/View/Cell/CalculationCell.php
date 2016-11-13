@@ -46,9 +46,14 @@ class CalculationCell extends Cell
      */
     public function calculateEv($packageValue, $postalService)
     {
-        //TODO fix calculation
         $p = $this->setP($postalService);
-debug($postalService);
+
+
+debug($postalService['_matchingData']['Insurances']->name);
+
+//        $postalService = $postalService->where(['PostalService.name' => 'Standard']);
+
+
         if(isset($postalService)) {
             if($postalService['tracked']) {
                 $ev = ((-$postalService['price']) + $packageValue);

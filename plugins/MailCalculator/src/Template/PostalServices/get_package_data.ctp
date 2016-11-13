@@ -1,6 +1,8 @@
+<?= $this->Html->css('MailCalculator.styles'); ?>
+
 <h1>Calculate the Expected Value of your mail insurance</h1>
 <?= $this->Form->create(null, ['class' => 'm-t', 'role' => 'form']) ?>
-<div class="form-group">
+<div class="form-group col-xs-4">
     <?= $this->Form->select('item_id', $items, ['class' => 'form-control', 'label' => false, 'empty' => __('Was möchten Sie verschicken?'), 'required']) ?>
     <?= $this->Form->input('value', ['placeholder' => __('in €'), 'autofocus']) ?>
     <?= $this->Form->input('weight', ['placeholder' => __('in g')]) ?>
