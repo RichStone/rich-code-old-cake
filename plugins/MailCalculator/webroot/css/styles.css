@@ -45,6 +45,7 @@
 footer {
     font-style: italic;
     background-color: lightgrey !important;
+    margin-top: 2% !important;
 }
 
 #item-id {

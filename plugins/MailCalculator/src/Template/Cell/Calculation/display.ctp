@@ -1,17 +1,21 @@
-<?php if(isset($postalServiceNameInsured)): ?>
-    <div>
-        <div>Der billigste versicherte Versandservice für Ihre <?= $item_name ?> ist</div><?= $postalServiceNameInsured . ' mit einem Preis von ' . $postalServicePriceInsured ?>
-    </div>
-    <div>
-        <div>EV versichert:</div> <?= $evInsured ?>
-    </div>
-<?php else: ?>
-    <div>hi</div>
-<?php endif; ?>
+<div class="container-fluid">
+    <div class="row">
+            <?php if(isset($postalServiceNameInsured)): ?>
+            <div class="col-sm-6">
+                Der billigste versicherte Versandservice für Ihre <?= $item_name ?> ist <?= $postalServiceNameInsured . ' mit einem Preis von ' . $postalServicePriceInsured ?>
+            <br>
+            EV versichert: <?= $evInsured ?>
+            </div>
+        <?php else: ?>
+            <div class="col-sm-6">
+                No insured option available
+            </div>
+        <?php endif; ?>
 
-<div>
-    <div>Der billigste NICHT versicherte Versandservice für Ihre <?= $item_name ?> ist</div><?= $postalServiceNameRisky . ' mit einem Preis von ' . $postalServicePriceRisky ?>
-</div>
-<div>
-    <div>EV nicht versichert: </div> <?=  $evRisky?>
+        <div class="col-sm-6">
+            Der billigste NICHT versicherte Versandservice für Ihre <?= $item_name ?> ist <?= $postalServiceNameRisky  . ' mit einem Preis von ' . $postalServicePriceRisky ?>
+            <br>
+            EV nicht versichert: <?=  $evRisky?>
+        </div>
+    </div>
 </div>

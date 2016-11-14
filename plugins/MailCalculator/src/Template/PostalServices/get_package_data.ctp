@@ -3,7 +3,7 @@
 <h3>Versand Erwartungswert Rechner</h3>
 <?= $this->Form->create(null, ['class' => 'm-t', 'role' => 'form']) ?>
 <div id="get-data-form" class="form-group">
-    <div class="container">
+    <div class="container-fluid">
 
         <?= $this->Form->select('item_id', $items, ['id' => 'item-id', 'class' => 'form-control', 'label' => false, 'empty' => __('Was möchten Sie verschicken?'), 'required']) ?>
 <!-- TODO create nice info box about the options (cell?) -->
