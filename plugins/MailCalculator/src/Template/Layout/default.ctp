@@ -26,11 +26,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('styles.css') ?>
-    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css') ?>
+    <?= $this->Html->css('MailCalculator.styles.css') ?>
+    <?= $this->Html->css('/css/bootstrap.min.css') ?>
 
-    <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js') ?>
-    <?= $this->Html->script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js') ?>
+    <?= $this->Html->script('/js/jquery-2.1.1.js') ?>
+    <?= $this->Html->script('/js/bootstrap.min.js') ?>
+
 </head>
 <body>
 <?= $this->Flash->render() ?>

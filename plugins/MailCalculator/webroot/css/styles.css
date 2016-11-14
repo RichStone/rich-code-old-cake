@@ -1,18 +1,19 @@
-.small-input {
-    margin: 0 auto 0 auto;
-    vertical-align: middle;
-    width: 65px;
-    vertical-align: middle;
-    background-color: rgba(255,255,255,0.9);
-}
-
 .img-input-field {
+    position: relative;
     vertical-align: middle;
     width: 150px;
     height: 150px;
     background: grey;
     margin: 2% auto;
     display: block;
+}
+
+.small-input {
+    position: absolute;
+    margin: auto;
+    width: 65px;
+    background-color: rgba(255,255,255,0.9);
+
 }
 
 .dollar-img {
