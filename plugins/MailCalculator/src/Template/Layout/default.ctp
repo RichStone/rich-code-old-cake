@@ -38,8 +38,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <div class="container clearfix">
     <?= $this->fetch('content') ?>
 </div>
-<footer>
-    <p>C Cop footer</p>
+<footer class="text-center">
+    <p>©20016 by RichStone</p>
 </footer>
 </body>
 </html>

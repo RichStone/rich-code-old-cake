@@ -10,7 +10,7 @@
 
 .small-input {
     position: absolute;
-    margin: auto;
+    margin: 45% 28%;
     width: 65px;
     background-color: rgba(255,255,255,0.9);
 
@@ -48,6 +48,10 @@ footer {
 }
 
 #item-id {
-    width: 200px;
+    width: 230px;
     margin: auto;
+}
+
+h3 {
+    text-align: center;
 }
