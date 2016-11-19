@@ -154,23 +154,27 @@ class PostalServicesController extends AppController
         $packageWeight = $request->data['weight'];
         $packageHeight = $request->data['height'];
 
+        $a = 50;
+
         //insured option
-        $postalServiceInsured = $this->PostalServices->find()->matching('Insurances', function ($q) {
-            return $q->where(['Insurances.name !=' => 'Unversichert']);
+        $postalServiceInsured = $this->PostalServices->find()->matching('Insurances', function ($q) use ($packageValue ){
+            return $q->where([
+                'Insurances.name !=' => 'Unversichert',
+                'Insurances.max_value >=' => $packageValue
+            ]);
         });
+//        debug($postalServiceInsured->toArray());die;
         $postalServiceInsured = $postalServiceInsured->find('all', [
             'conditions' => [
                 'PostalServices.max_weight >' => $packageWeight,
                 'PostalServices.max_height >' => $packageHeight,
             ],
             'order' => ['PostalServices.price' => 'ASC'],
-        ])
-            ->first();
-
+        ])->first();
 
         //risky option
         $postalServiceUninsured = $this->PostalServices->find()->matching('Insurances', function ($q) {
-            return $q->where(['Insurances.name =' => 'Unversichert']);
+            return $q->where(['Insurances.name' => 'Unversichert']);
         });
         $postalServiceUninsured = $postalServiceUninsured->find('all', [
             'conditions' => [
