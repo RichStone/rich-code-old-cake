@@ -52,6 +52,7 @@ class Installer
             $setFolderPermissions = $io->askAndValidate(
                 '<info>Set Folder Permissions ? (Default to Y)</info> [<comment>Y,n</comment>]? ',
                 $validator,
+                false,
                 10,
                 'Y'
             );
