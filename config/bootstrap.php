@@ -206,9 +206,14 @@ Type::build('datetime')
 
 // Only try to load DebugKit in development mode
 // Debug Kit should not be installed on a production system
+
+/*
+original debugKit configuration:
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
+*/
+Plugin::load('DebugKit', ['bootstrap' => true]);
 
 Plugin::load('Migrations');
 
