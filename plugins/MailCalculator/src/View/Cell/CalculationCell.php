@@ -29,14 +29,17 @@ class CalculationCell extends Cell
         //adjust calculateEV method properly
         $evInsured = $this->calculateEv($value, $insuredOption);
         $evRisky = $this->calculateEv($value, $riskyOption);
-        $postalServiceNameInsured = $insuredOption['name'];
-        $postalServicePriceInsured = $insuredOption['price'];
+        $postalServiceNameInsured = $insuredOption['name'] + $insuredOption['_matchingData']['Insurances']['name'];
+        $postalServicePriceInsured = $insuredOption['price'] + $insuredOption['_matchingData']['Insurances']['price'];
+
         $postalServiceNameRisky = $riskyOption['name'];
         $postalServicePriceRisky = $riskyOption['price'];
         $item_name = $this->Items->find('all')->where(['id' => $item_id])->first()->name;
+        $insuredCarrier = $insuredOption['carrier'];
+        $riskyCarrier = $riskyOption['carrier'];
 
         $this->set(compact('evRisky', 'evInsured', 'postalServiceNameInsured', 'postalServicePriceInsured',
-            'postalServiceNameRisky', 'postalServicePriceRisky', 'item_name'));
+            'postalServiceNameRisky', 'postalServicePriceRisky', 'item_name', 'insuredCarrier', 'riskyCarrier'));
     }
 
     /**
@@ -46,40 +49,39 @@ class CalculationCell extends Cell
      */
     public function calculateEv($packageValue, $postalService)
     {
-        $p = $this->setP($postalService);
+        $insuranceType = $postalService['_matchingData']['Insurances']['name'];
+        $p = $this->setP($postalService, $insuranceType);
 
-//TODO continue here with setting up right EV calculation
-//debug($postalService['_matchingData']['Insurances']->name);
-
-//        $postalService = $postalService->where(['PostalService.name' => 'Standard']);
-
-
+//TODO catch cases when postalservices are undefined (e.g. if no postalservices exist for particular package height)
         if(isset($postalService)) {
-            if($postalService['tracked']) {
-                $ev = ((-$postalService['price']) + $packageValue);
+            if($insuranceType !== 'Unversichert') {
+                $insuranceCost = $postalService['_matchingData']['Insurances']['price'];
+                $ev = ((-($postalService['price'] + $insuranceCost)) + $packageValue);
             }
             else {
                 $ev = ((-$postalService['price']) + (1 - $p) * (-$packageValue) + ($p * $packageValue));
             }
+            //TODO you could also send tracked but not insured e.g. with Einwurf Einschreiben
+            //->this would make a special cell case
+            //logic: !== 'Unversichert' BUT not outer join of postal_services_insurances table AND first of where price ASC
         }
-        else {
-            $ev = 'Es gibt leider keinen Versandservice zu Ihrer Eingabe';
-        }
-
         return $ev;
     }
 
-    public function setP($postalService) {
-        $p = null;
+    /**
+     * @return float|null probability of package loss
+     */
+    public function setP($postalService, $insuranceType) {
+        $p = 0;
 
         //national services
-        if($postalService['shipping_range'] === 'national' && $postalService['tracked'])
-            $p = 0.99;
-        if($postalService['shipping_range'] === 'national' && !$postalService['tracked'])
-            $p = 0.95;
+        if($postalService['shipping_range'] === 'national' && $insuranceType === 'Unversichert')
+            $p = 0.98;
+
+        //TODO you could also send tracked but not insured e.g. with Einwurf Einschreiben which would still have a special p of 1%
         //international services
         if($postalService['shipping_range'] === 'international' && $postalService['tracked'])
-            $p = 0.97;
+            $p = 0.95;
         if($postalService['shipping_range'] === 'international' && !$postalService['tracked'])
             $p = 0.90;
 
