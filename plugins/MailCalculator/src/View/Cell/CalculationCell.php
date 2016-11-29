@@ -27,9 +27,12 @@ class CalculationCell extends Cell
         $this->loadModel('Items');
 
         //adjust calculateEV method properly
-        $evInsured = $this->calculateEv($value, $insuredOption);
+        if(isset($insuredOption)) {
+            $evInsured = $this->calculateEv($value, $insuredOption);
+        }
+
         $evRisky = $this->calculateEv($value, $riskyOption);
-        $postalServiceNameInsured = $insuredOption['name'] + $insuredOption['_matchingData']['Insurances']['name'];
+        $postalServiceNameInsured = $insuredOption['name'] . ' ' . $insuredOption['_matchingData']['Insurances']['name'];
         $postalServicePriceInsured = $insuredOption['price'] + $insuredOption['_matchingData']['Insurances']['price'];
 
         $postalServiceNameRisky = $riskyOption['name'];
@@ -64,8 +67,8 @@ class CalculationCell extends Cell
             //TODO you could also send tracked but not insured e.g. with Einwurf Einschreiben
             //->this would make a special cell case
             //logic: !== 'Unversichert' BUT not outer join of postal_services_insurances table AND first of where price ASC
+            return $ev;
         }
-        return $ev;
     }
 
     /**

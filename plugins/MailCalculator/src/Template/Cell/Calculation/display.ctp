@@ -13,7 +13,7 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-            <?php if(isset($postalServiceNameInsured)): ?>
+            <?php if(isset($postalServiceNameInsured) && isset($evInsured) && isset($insuredCarrier) && isset($postalServicePriceInsured) ): ?>
             <div class="col-sm-6 text-center">
                 <div class="options">
                     Versandoption <strong>Versichert</strong> für <?= $item_name ?>: <br>
@@ -27,23 +27,33 @@
         <?php else: ?>
             <div class="col-sm-6 text-center">
                 <div class="options">
-                    Wir haben zur Zeit leider keine versicherte Option für Ihre Eingabe.
+                    Wir haben zur Zeit leider keine <strong>versicherte</strong> Option für Ihren Wunschversand.
                     Bitte kontaktieren Sie uns mit
                     Ihren Daten, damit wir unsere Postdienste aktualisieren.
                 </div>
             </div>
         <?php endif; ?>
-
-        <div class="col-sm-6 text-center">
-            <div class="options">
-                Versandoption <strong>Unversichert</strong>:<br>
-                <?= $riskyCarrier ?>
-                <?= $postalServiceNameRisky ?> <br>
-                <?= $postalServicePriceRisky ?> <br>
-                Erwartungswert: <?=  $evRisky?> <br>
-                Geschätzte Verlustwahrscheinlichkeit: 2%
+<!-- TODO add boolean postalServiceSet to make the line below much shorter -->
+        <?php if(isset($postalServiceNameRisky) && isset($evRisky) && isset($riskyCarrier) && isset($postalServicePriceRisky) ): ?>
+            <div class="col-sm-6 text-center">
+                <div class="options">
+                    Versandoption <strong>Unversichert</strong>:<br>
+                    <?= $riskyCarrier ?>
+                    <?= $postalServiceNameRisky ?> <br>
+                    <?= $postalServicePriceRisky ?> <br>
+                    Erwartungswert: <?=  $evRisky?> <br>
+                    Geschätzte Verlustwahrscheinlichkeit: 2%
+                </div>
             </div>
-        </div>
+        <?php else: ?>
+            <div class="col-sm-6 text-center">
+                <div class="options">
+                    Wir haben zur Zeit leider keine <strong>unversicherte</strong> Option für Ihren Wunschversand.
+                    Bitte kontaktieren Sie uns mit
+                    Ihren Daten, damit wir unsere Postdienste aktualisieren.
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="row">
         <div class="text-center">
