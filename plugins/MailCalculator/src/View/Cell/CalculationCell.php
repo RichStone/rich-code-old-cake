@@ -76,12 +76,12 @@ class CalculationCell extends Cell
      */
     public function setP($postalService, $insuranceType) {
         $p = 0;
-
         //national services
         if($postalService['shipping_range'] === 'national' && $insuranceType === 'Unversichert')
             $p = 0.98;
 
-        //TODO you could also send tracked but not insured e.g. with Einwurf Einschreiben which would still have a special p of 1%
+        //TODO last case: you could also send tracked but not insured e.g. with Einwurf Einschreiben which would still have a special p of 1%
+
         //international services
         if($postalService['shipping_range'] === 'international' && $postalService['tracked'])
             $p = 0.95;

@@ -31,6 +31,16 @@
     background-size: 100%;
 }
 
+.width-img {
+    background-color: darkseagreen;
+    background-size: 100%;
+}
+
+.length-img {
+    background-color: darkorange;
+    background-size: 100%;
+}
+
 .calculator-img {
     background: url("../img/calculator.svg");
     background-size: 100%;
